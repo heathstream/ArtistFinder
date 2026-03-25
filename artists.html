@@ -40,12 +40,12 @@
                 <div class="subHeader">
                     <h2>Artists</h2>
                     <div class="browseButtonGroup">
-                        <button class="button rounded2">Prev</button>
-                        <button class="button rounded2">Next</button>
+                        <button id="buttonPrev" class="button rounded2">Prev</button>
+                        <button id="buttonNext" class="button rounded2">Next</button>
                     </div>
                     <div class="searchBoxGroup">
-                        <input class="rounded2" placeholder="Led Zeppelin">
-                        <button class="button rounded2">Search</button>
+                        <input id="searchBox" class="rounded2" placeholder="Led Zeppelin">
+                        <button id="buttonSearch" class="button rounded2">Search</button>
                     </div>
                 </div>
                 <div class="artistsTable">
@@ -195,12 +195,14 @@
                             </a>
                         </div>
                     </div>
-                    <div style="height: 2rem;"></div>
+                    <div id="tableBottom" style="height: 2rem;"></div>
                 </div>
             </div>
         </div>
         <div class="footer">(c) Anders Hedström</footer>
-        </div>
+    </div>
+    <script src="./js/artists.js" type="module"></script>
+    <script src="./js/api-service.js" type="module"></script>
 </body>
 
 </html>

@@ -231,6 +231,10 @@ p {
     .rounded1 {
         border-radius: 0rem;
     }
+
+    h2 {
+        margin-left: 1rem;
+    }
 }
 
 /* @media (width >= 1400px) {

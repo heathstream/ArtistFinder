@@ -4,7 +4,8 @@
 }
 
 .searchBoxGroup {
-    width: 28rem;
+    width: 100%;
+    max-width: 32rem;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -83,9 +84,9 @@ h1 {
 }
 
 @media (width <= 850px) {
-    .searchBoxGroup {
+    /* .searchBoxGroup {
         width: 100%;
-    }
+    } */
 }
 
 @media (width <= 600px) {
@@ -96,5 +97,9 @@ h1 {
 
     .artistAlbums {
         display: none;
+    }
+
+    .searchBoxGroup {
+        margin: 0rem 1rem;
     }
 }
