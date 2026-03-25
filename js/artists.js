@@ -1,5 +1,5 @@
 "use strict";
-import { musicGroupService } from "./api-service.js";
+import { musicGroupService, convertGenre } from "./api-service.js";
 
 const _service = new musicGroupService("https://music.api.public.seido.se/api");
 let musicGroups;
@@ -12,10 +12,10 @@ let currentPage = 0;
 
 // Sidans element:
 const artistsTableLoader = document.querySelector(".artistsTableLoader");
-let artistsTable = document.querySelector(".artistsTable");
-let tableBottom = document.querySelector("#tableBottom");
-let searchBox = document.querySelector("#searchBox");
-let paginatorText = document.querySelector("#paginatorText");
+const artistsTable = document.querySelector(".artistsTable");
+const tableBottom = document.querySelector("#tableBottom");
+const searchBox = document.querySelector("#searchBox");
+const paginatorText = document.querySelector("#paginatorText");
 document.querySelector("#buttonPrev").addEventListener("click", clickHandlerPrev);
 document.querySelector("#buttonNext").addEventListener("click", clickHandlerNext);
 document.querySelector("#buttonSearch").addEventListener("click", clickHandlerSearch);
@@ -25,7 +25,6 @@ document.querySelector("#buttonSearch").addEventListener("click", clickHandlerSe
     await loadMusicGroups();
     await fillList();
     console.log("test");
-
 })();
 
 async function loadMusicGroups() {
@@ -37,7 +36,7 @@ async function loadMusicGroups() {
 async function fillList() {
     clearList();
 
-    paginatorText.innerText = `Showing (${currentPage * pageSize + 1} - ${Math.min(currentPage * pageSize + pageSize, musicGroups.dbItemsCount)}) of ${musicGroups.dbItemsCount}`;
+    paginatorText.innerText = `${currentPage * pageSize + 1}-${Math.min(currentPage * pageSize + pageSize, musicGroups.dbItemsCount)} of ${musicGroups.dbItemsCount} groups`;
 
     for (const musicGroup of musicGroups.pageItems) {
         let tableRow = addTableRow();
@@ -112,26 +111,3 @@ function toggleLoader() {
     artistsTableLoader.classList.toggle("hidden");
 }
 
-// Funktion som konverterar genre-numren till genrer
-function convertGenre(number) {
-        switch (number) {
-            case 0:
-                return "Rock";
-            case 1:
-                return "Blues";
-            case 2:
-                return "Country";
-            case 3:
-                return "Jazz";
-            case 4:
-                return "Metal";
-            case 5:
-                return "Alternative";
-            case 6:
-                return "Classical";
-            case 7:
-                return "EDM";
-            default:
-                return "Kids";
-        }
-    }

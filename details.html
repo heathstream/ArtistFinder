@@ -46,24 +46,24 @@
                     </div>
                     <div class="detailsInfoEntry">
                         <div class="infoKey">Name:</div>
-                        <div class="infoValue">Gorillaz</div>
+                        <div id="name" class="infoValue">Gorillaz</div>
                     </div>
                     <div class="detailsInfoEntry">
                         <div class="infoKey">Genre:</div>
-                        <div class="infoValue">Alternative</div>
+                        <div id="genre" class="infoValue">Alternative</div>
                     </div>
                     <div class="detailsInfoEntry">
                         <div class="infoKey">Est. year:</div>
-                        <div class="infoValue">1998</div>
+                        <div id="year" class="infoValue">1998</div>
                     </div>
                 </div>
             </div>
             <div class="detailsSection rounded1">
-                <div class="detailsTable rounded1 bordered">
+                <div id="membersSection" class="detailsTable rounded1 bordered">
                     <div class="subHeader">
                         <h2>Members</h2>
                     </div>
-                    <div>
+                    <div id="membersTable">
                         <div class="memberRow tableRowTitle">
                             <div class="tableCellTitle">Name</div>
                             <div class="tableCellTitle">Age</div>
@@ -72,14 +72,14 @@
                             <div class="tableCell">2-D</div>
                             <div class="tableCell">25</div>
                         </div>
+                        <div id="membersTableBottom" style="height: 2rem;"></div>
                     </div>
-                    <div style="height: 2rem;"></div>
                 </div>
-                <div class="detailsTable rounded1 bordered">
+                <div id="albumsSection" class="detailsTable rounded1 bordered">
                     <div class="subHeader">
                         <h2>Albums</h2>
                     </div>
-                    <div>
+                    <div id="albumsTable">
                         <div class="albumRow tableRowTitle">
                             <div class="tableCellTitle">Name</div>
                             <div class="tableCellTitle">Year</div>
@@ -88,13 +88,14 @@
                             <div class="tableCell">Gorillaz</div>
                             <div class="tableCell">2001</div>
                         </div>
+                        <div id="albumsTableBottom" style="height: 2rem;"></div>
                     </div>
-                    <div style="height: 2rem;"></div>
                 </div>
             </div>
         </div>
-        <div class="footer">(c) Anders Hedström</footer>
-        </div>
+        <div class="footer">© Anders Hedström</footer>
+    </div>
+    <script src="./js/details.js" type="module"></script>
 </body>
 
 </html>

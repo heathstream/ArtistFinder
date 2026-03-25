@@ -23,8 +23,9 @@
 .detailsInfoEntry {
     width: 1fr;
     display: grid;
-    grid-template-columns: 8rem 1fr;
+    grid-template-columns: 7rem 1fr;
     font-size: larger;
+    color: var(--color4);
 }
 
 .detailsInfoEntry:nth-of-type(2n) {
@@ -51,7 +52,6 @@
 }
 
 .detailsTable {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -63,16 +63,33 @@
 }
 
 .memberRow {
-    grid-template-columns: 12rem 5rem 1fr;
+    grid-template-columns: 1fr 5rem;
 }
 
 .albumRow {
-    grid-template-columns: 12rem 5rem 1fr;
+    grid-template-columns: 1fr 5rem;
+}
+
+#membersSection {
+    display: flex;
+    flex: 25%;
+}
+
+#albumsSection {
+    display: flex;
+    flex: auto;
 }
 
 @media (width <= 800px) {
     .detailsTable {
         width: 100%;
         flex: auto;
+    }
+}
+
+@media (width <= 600px) {
+    .bordered {
+        border: 0px;
+        border-bottom: 1px solid var(--color3);
     }
 }

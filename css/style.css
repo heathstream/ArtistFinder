@@ -167,6 +167,7 @@ p {
     display: grid;
     align-items: center;
     font-size: larger;
+    color: var(--color4);
 }
 
 .tableRow:nth-of-type(2n) {
@@ -191,6 +192,10 @@ p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.tableCell:last-child {
+    border-right: 0px;
 }
 
 .tableCellTitle {

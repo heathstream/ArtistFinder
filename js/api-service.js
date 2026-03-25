@@ -88,3 +88,27 @@ export function musicGroupService(url) {
 
     
 }
+
+// Funktion som konverterar genre-numren till genrer
+export function convertGenre(number) {
+    switch (number) {
+        case 0:
+            return "Rock";
+        case 1:
+            return "Blues";
+        case 2:
+            return "Country";
+        case 3:
+            return "Jazz";
+        case 4:
+            return "Metal";
+        case 5:
+            return "Alternative";
+        case 6:
+            return "Classical";
+        case 7:
+            return "EDM";
+        default:
+            return "Kids";
+    }
+}
