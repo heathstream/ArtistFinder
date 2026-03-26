@@ -11,7 +11,7 @@ let pageCount;
 let currentPage = 0;
 
 // Sidans element:
-const artistsTableLoader = document.querySelector(".artistsTableLoader");
+const loadingOverlay = document.querySelector(".loadingOverlay");
 const artistsTable = document.querySelector(".artistsTable");
 const tableBottom = document.querySelector("#tableBottom");
 const searchBox = document.querySelector("#searchBox");
@@ -110,6 +110,6 @@ async function clickHandlerSearch() {
 }
 
 function toggleLoader() {
-    artistsTableLoader.classList.toggle("hidden");
+    loadingOverlay.classList.toggle("hidden");
 }
 

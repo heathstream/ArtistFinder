@@ -15,8 +15,10 @@ const membersTable = document.querySelector("#membersTable");
 const albumsTable = document.querySelector("#albumsTable");
 const membersTableBottom = document.querySelector("#membersTableBottom");
 const albumsTableBottom = document.querySelector("#albumsTableBottom");
+const loadingOverlay = document.querySelector(".loadingOverlay");
 
 (async () => {
+    toggleLoader();
     musicGroup = await _service.readMusicGroupAsync(musicGroupId);
     console.log(musicGroup);
 
@@ -25,6 +27,7 @@ const albumsTableBottom = document.querySelector("#albumsTableBottom");
     yearDiv.innerText = musicGroup.item.establishedYear;
 
     fillLists();
+    toggleLoader();
 })();
 
 function fillLists() {
@@ -65,4 +68,8 @@ function clearLists() {
     while (albumsTable.querySelector(".tableRow")) {
         albumsTable.removeChild(albumsTable.querySelector(".tableRow"));
     }
+}
+
+function toggleLoader() {
+    loadingOverlay.classList.toggle("hidden");
 }

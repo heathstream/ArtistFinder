@@ -6,6 +6,8 @@
     --color4: #8da5c4;
     --color5: #e0e1dd;
     --logoColor: rgb(28, 234, 107);
+    --validColor: lightgreen;
+    --invalidColor: rgb(255, 88, 88);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--color5);
 }

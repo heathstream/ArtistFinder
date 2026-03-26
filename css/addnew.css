@@ -11,18 +11,23 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     padding: 2rem;
+}
+
+.formItem {
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.2rem;
 }
 
 .addNewEntry {
     height: 2.4rem;
     font-size: larger;
-    display: grid;
-    grid-template-columns: 6rem 10rem;
 }
 
-select {
+.formItem > select, .formItem > input {
     width: 100%;
 }
 
@@ -39,12 +44,16 @@ option {
     font-style: italic;
 }
 
-.submitFail {
-    color: red;
+.invalid {
+    color: var(--invalidColor);
 }
 
-.submitSuccess {
-    color: var(--logoColor);
+.valid {
+    color: var(--validColor);
+}
+
+.invalidText {
+    height: 1.5rem;
 }
 
 /* button {

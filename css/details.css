@@ -4,6 +4,7 @@
     display: inherit;
     flex-wrap: inherit;
     gap: inherit;
+    position: relative;
 }
 
 .detailsImage {

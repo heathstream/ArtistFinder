@@ -29,6 +29,7 @@ body {
     grid-area: content;
     padding: 2rem;
     gap: 2rem;
+    position: relative;
 }
 
 .header {
@@ -204,6 +205,23 @@ p {
     color: var(--color4);
 }
 
+.loadingOverlay {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color1);
+    opacity: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color5);
+    font-size: xx-large;
+}
+
+.hidden {
+    display: none;
+}
+
 @media (orientation: landscape) {
     .layout {
         grid-template-areas:
@@ -254,6 +272,6 @@ p {
 } */
 
 /* DEBUG STYLES */
-/* div, h1, h2, h3, form, input {
+/* div, h1, h2, h3, form, input, span {
     border: 1px solid white;
 } */
