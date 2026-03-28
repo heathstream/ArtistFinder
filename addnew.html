@@ -41,30 +41,31 @@
                     <h2>Add new artist</h2>
                 </div>
                 <form>
-                    <div class="formItem">
-                        <span id="nameInvalidText" class="invalidText invalid"></span>
-                        <input class="addNewEntry valueInput rounded2" id="name" placeholder="Name"
-                        type="text" required>
+                    <div class="formItems">
+                        <div class="formItem">
+                            <span id="nameInvalidText" class="invalidText invalid"></span>
+                            <input class="addNewEntry valueInput rounded2" id="name" placeholder="Name"
+                            type="text" required>
+                        </div>
+    
+                        <div class="formItem">
+                            <span id="genreInvalidText" class="invalidText invalid"></span>
+                            <select class="addNewEntry valueInput rounded2" id="genre" required>
+                                <option value="" disabled selected>Genre</option>
+                            </select>
+                        </div>
+    
+                        <div class="formItem">
+                            <span id="yearInvalidText" class="invalidText invalid"></span>
+                            <select class="addNewEntry valueInput rounded2" id="year" required>
+                                <option value="" disabled selected>Year</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="formItem">
-                        <span id="genreInvalidText" class="invalidText invalid"></span>
-                        <select class="addNewEntry valueInput rounded2" id="genre" required>
-                            <option value="" disabled selected>Genre</option>
-                        </select>
-                    </div>
-
-                    <div class="formItem">
-                        <span id="yearInvalidText" class="invalidText invalid"></span>
-                        <select class="addNewEntry valueInput rounded2" id="year" required>
-                            <option value="" disabled selected>Year</option>
-                        </select>
-                    </div>
-
-                    <input type="submit" class="button rounded2">
+                    <input type="submit" class="submitButton button rounded2">
                 </form>
                 <span id="submitStatusText"></span>
-                <div style="height: 2rem"></div>
             </div>
         </div>
         <div class="footer">© Anders Hedström</footer>

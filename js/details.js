@@ -2,10 +2,9 @@
 import { musicGroupService } from "./api-service.js";
 
 const _service = new musicGroupService("https://music.api.public.seido.se/api");
-let musicGroup;
 let url = new URL(window.location);
 let musicGroupId = url.searchParams.get("id");
-console.log(musicGroupId);
+let musicGroup;
 
 // Sidans element:
 const nameDiv = document.querySelector("#name");

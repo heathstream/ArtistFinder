@@ -2,6 +2,7 @@
 import { musicGroupService } from "./api-service.js";
 
 const _service = new musicGroupService("https://music.api.public.seido.se/api");
+const musicGenres = ["Rock", "Metal", "Alternative", "Jazz", "Classical", "Kids", "Country", "Folk", "R&B", "Hiphop"];
 
 // Sidans element:
 const form = document.querySelector("form");
@@ -9,59 +10,40 @@ const submitStatusText = document.querySelector("#submitStatusText");
 const nameInput = document.querySelector("#name");
 const genreInput = document.querySelector("#genre");
 const yearInput = document.querySelector("#year");
-const nameInvalidText = document.querySelector("#nameInvalidText");
-const genreInvalidText = document.querySelector("#genreInvalidText");
-const yearInvalidText = document.querySelector("#yearInvalidText");
+const nameValidityText = document.querySelector("#nameInvalidText");
+const genreValidityText = document.querySelector("#genreInvalidText");
+const yearValidityText = document.querySelector("#yearInvalidText");
 
 // Event handlers:
+nameInput.addEventListener("invalid", (e) => inputInvalidHandler(e, "Must be at least 3 characters.", nameValidityText));
+genreInput.addEventListener("invalid", (e) => inputInvalidHandler(e, "Please select a genre.", genreValidityText));
+yearInput.addEventListener("invalid", (e) => inputInvalidHandler(e, "Please select a year.", yearValidityText));
+genreInput.addEventListener("change", () => setValidText(genreValidityText));
+yearInput.addEventListener("change", () => setValidText(yearValidityText));
 form.addEventListener("submit", e => submitHandler(e))
-nameInput.addEventListener("invalid", (e) => {
-    e.preventDefault();
-    nameInvalidText.innerText = "Must be at least 3 characters.";
-});
-nameInput.addEventListener("input", () => {
-    if (validateName(nameInput.value)) {
-        nameInput.setCustomValidity("");
-        setValidText(nameInvalidText);
-    }
-    else {
-        nameInput.setCustomValidity("invalid");
-        nameInvalidText.innerText = "Must be at least 3 characters.";
-        setInvalidText(nameInvalidText);
-    }
-});
-genreInput.addEventListener("invalid", (e) => {
-    e.preventDefault();
-    genreInvalidText.innerText = "Please select a genre.";
-    setInvalidText(genreInvalidText);
-});
-genreInput.addEventListener("change", () => {
-    setValidText(genreInvalidText);
-});
-yearInput.addEventListener("invalid", (e) => {
-    e.preventDefault();
-    yearInvalidText.innerText = "Please select a year.";
-    setInvalidText(yearInvalidText);
-});
-yearInput.addEventListener("change", () => {
-    setValidText(yearInvalidText);
-});
+nameInput.addEventListener("input", () => validateNameInput(nameInput.value));
 
 async function submitHandler(e) {
-    console.log("genre value:", document.querySelector("#genre").value);
-    console.log("genre validity:", document.querySelector("#genre").checkValidity());
     if (!form.checkValidity()) {
         e.preventDefault();
         e.stopPropagation();
     }
     else {
         e.preventDefault();
-        const name = new String(document.querySelector("input[id='name']").value);
-        const genre = new String(document.querySelector("select[id='genre']").value);
-        const year = new Number(document.querySelector("select[id='year']").value);
+        const name = new String(nameInput.value);
+        const genre = new String(genreInput.value);
+        const year = new Number(yearInput.value);
 
-        
-        
+        // Extra felhantering innan vi skickar till API:t, utifall användaren fipplat med formen på något sätt
+        if (name.length < 3) {
+            nameInput.dispatchEvent(new Event("invalid"));
+            return;
+        }
+        // else if (!musicGenres.includes(genre)) {
+        //     genreInput.dispatchEvent(new Event("invalid"));
+        //     return;
+        // }
+
         const newMusicGroup = {
             "musicGroupId": null,
             "name": name,
@@ -75,16 +57,34 @@ async function submitHandler(e) {
         if (submittedGroup) {
             submitStatusText.classList.add("valid");
             submitStatusText.innerText = "Successfully submitted!"
-        }
-        else {
+        } else {
             submitStatusText.classList.add("invalid");
-            submitStatusText.innerText = "Failed to submit."
+            submitStatusText.innerText = "There was an error submitting the form. \nPlease refresh the page."
         }
 
         form.reset();
-        clearInvalidText(nameInvalidText);
-        clearInvalidText(genreInvalidText);
-        clearInvalidText(yearInvalidText);
+        clearValidityText(nameValidityText);
+        clearValidityText(genreValidityText);
+        clearValidityText(yearValidityText);
+    }
+}
+
+function inputInvalidHandler(e, errorText, errorTextContainer) {
+    e.preventDefault();
+    errorTextContainer.innerText = errorText;
+    setInvalidText(errorTextContainer);
+}
+
+function validateNameInput(name) {
+    const trimmed = name.trim();
+    const matchesRegex = /^[a-öA-Ö0-9 ]+$/.test(trimmed);
+    if (!(trimmed.length > 2 && matchesRegex)) {
+        nameInput.setCustomValidity("invalid");
+        nameValidityText.innerText = "Must be at least 3 characters.";
+        setInvalidText(nameValidityText);
+    } else {
+        nameInput.setCustomValidity("");
+        setValidText(nameValidityText);
     }
 }
 
@@ -99,48 +99,23 @@ function setInvalidText(element) {
     element.classList.remove("valid");
 }
 
-function clearInvalidText(element) {
+function clearValidityText(element) {
     element.innerText = "";
     element.classList.remove("invalid");
     element.classList.remove("valid");
 }
 
-function validateName(text) {
-    const trimmed = text.trim();
-    const matchesRegex = /^[a-zA-Z0-9 ]+$/.test(trimmed);
-    return trimmed.length > 2 && matchesRegex;
-}
-
 function populateGenreOptions() {
-    
-    const select = document.querySelector("#genre");
-    const genres = [
-        "Rock",
-        "Metal",
-        "Alternative",
-        "Jazz",
-        "Classical",
-        "Kids",
-        "Country",
-        "Folk",
-        "R&B",
-        "Hiphop"
-    ]
-    
-    for (const genre of genres) {
-        const option = select.appendChild(document.createElement("option"));
+    for (const genre of musicGenres) {
+        const option = genreInput.appendChild(document.createElement("option"));
         option.value = genre;
         option.innerText = genre;
     }
 }
 
 function populateYearOptions() {
-
-    const select = document.querySelector("#year");
-    const currentYear = new Date().getFullYear();
-
-    for (let i = currentYear; i >= 1900; i--) {
-        const option = select.appendChild(document.createElement("option"));
+    for (let i = new Date().getFullYear(); i >= 1900; i--) {
+        const option = yearInput.appendChild(document.createElement("option"));
         option.value = i;
         option.innerText = i.toString();
     }

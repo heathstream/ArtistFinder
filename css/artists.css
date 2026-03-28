@@ -5,19 +5,33 @@
 
 .searchBoxGroup {
     width: 100%;
-    max-width: 24rem;
     height: 100%;
     display: flex;
+    flex: auto;
     justify-content: space-between;
     align-items: center;
     gap: 0.7rem;
-    margin: 1rem 2rem;
 }
 
-.searchBoxGroup > input {
+#searchBox {
     width: 100%;
     display: block;
     height: 2.4rem;
+}
+
+#seededCheckbox {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: var(--color1);
+}
+
+.seededCheckboxGroup {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: large;
+    color: var(--color4);
 }
 
 .artistsTable {
@@ -28,9 +42,9 @@
     position: relative;
 }
 
-.artistsTableRow {
-    grid-template-columns: 5rem 30% 20% 12% 8% 1fr;
-    grid-template-areas: "image name genre year albums details";
+.artistsTableRow, .tableRowTitle {
+    grid-template-columns: 42% 18% 15% 10% 1fr;
+    grid-template-areas: "name genre year albums details";
 }
 
 .artistImage {
@@ -64,19 +78,15 @@
     grid-area: details;
 }
 
-.artistDetails > button {
-    justify-self: end;
-}
-
 .detailsButton {
+    justify-self: end;
     margin-left: auto;
-    margin-right: 1rem;
 }
 
 .browseButtonGroup {
     display: flex;
     align-items: center;
-    margin: 1rem;
+    margin-left: 1rem;
     gap: 0.7rem;
     margin-right: auto;
 }
@@ -84,11 +94,10 @@
 #paginatorText {
     color: var(--color4);
     font-size: large;
-    margin-right: 1rem;
 }
 
-h1 {
-    margin-left: 2rem;
+.highlightSearch {
+    font-weight: bold;
 }
 
 @media (width <= 850px) {
@@ -99,18 +108,14 @@ h1 {
 
 @media (width <= 600px) {
     .artistsTableRow {
-        grid-template-columns: 4rem 45% 20% 1fr;
-        grid-template-areas: "image name genre details";
+        grid-template-columns: 55% 20% 1fr;
+        grid-template-areas: "name genre details";
     }
 
     .artistAlbums, .artistYear {
         display: none;
     }
 
-    .searchBoxGroup {
-        margin: 0rem 1rem;
-        margin-bottom: 1rem;
-    }
 
     .artistsContainer {
         border: 0px;

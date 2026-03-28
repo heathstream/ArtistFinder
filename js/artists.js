@@ -4,6 +4,7 @@ import { musicGroupService } from "./api-service.js";
 const _service = new musicGroupService("https://music.api.public.seido.se/api");
 let musicGroups;
 let filter = "";
+let seeded = true;
 
 // Paginatorns värden
 const pageSize = 10;
@@ -16,19 +17,19 @@ const artistsTable = document.querySelector(".artistsTable");
 const tableBottom = document.querySelector("#tableBottom");
 const searchBox = document.querySelector("#searchBox");
 const paginatorText = document.querySelector("#paginatorText");
-document.querySelector("#buttonPrev").addEventListener("click", clickHandlerPrev);
-document.querySelector("#buttonNext").addEventListener("click", clickHandlerNext);
-document.querySelector("#buttonSearch").addEventListener("click", clickHandlerSearch);
+document.querySelector("#buttonPrev").addEventListener("click", clickPrevHandler);
+document.querySelector("#buttonNext").addEventListener("click", clickNextHandler);
+document.querySelector("#buttonSearch").addEventListener("click", clickSearchHandler);
+document.querySelector("#seededCheckbox").addEventListener("change", (e) => checkSeededHandler(e));
 
 // Populate the table
 (async () => {
     await loadMusicGroups();
     await fillList();
-    console.log("test");
 })();
 
 async function loadMusicGroups() {
-    musicGroups = await _service.readMusicGroupsAsync(currentPage, pageSize, filter);
+    musicGroups = await _service.readMusicGroupsAsync(currentPage, pageSize, filter, seeded);
     pageCount = musicGroups.pageCount;
 }
 
@@ -37,7 +38,7 @@ async function fillList() {
     clearList();
 
     paginatorText.innerText = musicGroups.pageItems.length > 0
-    ? `${currentPage * pageSize + 1}-${Math.min(currentPage * pageSize + pageSize, musicGroups.dbItemsCount)} of ${musicGroups.dbItemsCount} groups`
+    ? `Showing ${currentPage * pageSize + 1}-${Math.min(currentPage * pageSize + pageSize, musicGroups.dbItemsCount)} of ${musicGroups.dbItemsCount} groups`
     : `No results found`;
 
     for (const musicGroup of musicGroups.pageItems) {
@@ -47,11 +48,11 @@ async function fillList() {
         tableRow.appendChild(addTableCell("artistYear", musicGroup.establishedYear));
         tableRow.appendChild(addTableCell("artistAlbums", musicGroup.albums ? musicGroup.albums.length : "0"));
         let artistDetails = tableRow.appendChild(document.createElement("div"));
-        artistDetails.classList.add("artistDetails");
+        artistDetails.classList.add("tableCell", "artistDetails");
         let infoButton = artistDetails.appendChild(document.createElement("button"));
         infoButton.classList.add("button", "detailsButton", "rounded2");
         infoButton.innerText = "Info";
-        infoButton.addEventListener("click", () => clickHandlerDetails(musicGroup.musicGroupId));
+        infoButton.addEventListener("click", () => clickDetailsHandler(musicGroup.musicGroupId));
     }
 
     toggleLoader();
@@ -66,7 +67,12 @@ async function fillList() {
     function addTableCell(className = null, innerText = null) {
         let cell = document.createElement("div");
         cell.classList.add("tableCell", className);
-        cell.innerText = innerText;
+        if (filter) {
+            cell.innerHTML = highlightSearchText(innerText);
+        }
+        else {
+            cell.innerText = innerText;
+        }
         return cell;
     }
 }
@@ -79,11 +85,21 @@ function clearList() {
 }
 
 // Event handlers
-function clickHandlerDetails(musicGroupId) {
+function checkSeededHandler(e) {
+    console.log("Checkbox handler running");
+    if (e.target.checked) {
+        seeded = true;
+    }
+    else {
+        seeded = false;
+    }
+}
+
+function clickDetailsHandler(musicGroupId) {
     location.href = `details.html?id=${musicGroupId}`;
 }
 
-async function clickHandlerNext() {
+async function clickNextHandler() {
     if (currentPage < pageCount - 1) {
         toggleLoader();
         currentPage++;
@@ -92,7 +108,7 @@ async function clickHandlerNext() {
     }
 }
 
-async function clickHandlerPrev() {
+async function clickPrevHandler() {
     if (currentPage > 0) {
         toggleLoader();
         currentPage--;
@@ -101,9 +117,9 @@ async function clickHandlerPrev() {
     }
 }
 
-async function clickHandlerSearch() {
+async function clickSearchHandler() {
     toggleLoader();
-    filter = searchBox.value;
+    filter = searchBox.value.trim();
     currentPage = 0;
     await loadMusicGroups();
     fillList();
@@ -113,3 +129,9 @@ function toggleLoader() {
     loadingOverlay.classList.toggle("hidden");
 }
 
+function highlightSearchText(text) {
+    if (!filter) return text;
+    const str = new String(text ?? "");
+    const regex = new RegExp(`(${filter})`, "gi");
+    return str.replace(regex, `<span class="highlightSearch">$1</span>`);
+}

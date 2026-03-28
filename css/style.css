@@ -46,9 +46,16 @@ body {
     margin-left: 1rem;
 }
 
+.container {
+    width: 40rem;
+    padding: 2rem;
+}
+
 .subHeader {
     width: 100%;
-    min-height: 4rem;
+    min-height: 2rem;
+    padding: 1rem 2rem;
+    gap: 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -155,9 +162,6 @@ a {
     color: var(--color4)
 }
 
-h2, h3 {
-    margin-left: 2rem;
-}
 
 p {
     color: var(--color4);
@@ -193,16 +197,26 @@ p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    white-space: pre;
+}
+
+.tableCell:first-child {
+    padding-left: 2rem;
 }
 
 .tableCell:last-child {
     border-right: 0px;
+    padding-right: 2rem;
 }
 
 .tableCellTitle {
     font-size: medium;
     padding-left: 1rem;
-    color: var(--color4);
+    color: var(--color3);
+}
+
+.tableCellTitle:first-child {
+    padding-left: 2rem;
 }
 
 .loadingOverlay {
@@ -220,6 +234,14 @@ p {
 
 .hidden {
     display: none;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--color3);
 }
 
 @media (orientation: landscape) {
@@ -257,10 +279,6 @@ p {
 
     .rounded1 {
         border-radius: 0rem;
-    }
-
-    h2 {
-        margin-left: 1rem;
     }
 }
 

@@ -33,8 +33,8 @@ export function musicGroupService(url) {
         }
     }
 
-    this._readItemsAsync = async function (reqUrl, pageNr, flat, filter, pageSize) {
-        reqUrl += `?flat=${flat}&pageNr=${pageNr}&pageSize=${pageSize}`;
+    this._readItemsAsync = async function (reqUrl, pageNr, flat, filter, pageSize, seeded) {
+        reqUrl += `?flat=${flat}&pageNr=${pageNr}&pageSize=${pageSize}&seeded=${seeded}`;
         if (filter != null) {
             reqUrl += `&filter=${filter}`
         }
@@ -74,7 +74,7 @@ export function musicGroupService(url) {
     //#endregion
     
     // CRUD-metoder för musikgrupper:
-    this.readMusicGroupsAsync = async (pageNr, pageSize, filter = null) => await this._readItemsAsync(`${this.url}/MusicGroups/Read`, pageNr, true, filter, pageSize);
+    this.readMusicGroupsAsync = async (pageNr, pageSize, filter = null, seeded = true) => await this._readItemsAsync(`${this.url}/MusicGroups/Read`, pageNr, true, filter, pageSize, seeded);
     this.readMusicGroupAsync = async (musicGroupId) => await this._readItemAsync(`${this.url}/MusicGroups/ReadItem`, musicGroupId, false);
     this.createMusicGroupAsync = async (newItem) => await this._createItemAsync(`${this.url}/MusicGroups/CreateItem`, newItem);
 
