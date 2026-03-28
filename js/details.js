@@ -7,6 +7,7 @@ let musicGroupId = url.searchParams.get("id");
 let musicGroup;
 
 // Sidans element:
+const artistImage = document.querySelector("#artistImage");
 const nameDiv = document.querySelector("#name");
 const genreDiv = document.querySelector("#genre");
 const yearDiv = document.querySelector("#year");
@@ -24,6 +25,7 @@ const loadingOverlay = document.querySelector(".loadingOverlay");
     nameDiv.innerText = musicGroup.item.name;
     genreDiv.innerText = musicGroup.item.strGenre;
     yearDiv.innerText = musicGroup.item.establishedYear;
+    artistImage.src = `https://picsum.photos/seed/${musicGroupId}/300/300`;
 
     fillLists();
     toggleLoader();
