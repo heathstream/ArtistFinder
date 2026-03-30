@@ -40,8 +40,8 @@ function fillLists() {
         memberRow.classList.add("memberRow", "tableRow");
         memberRow.appendChild(addTableCell(`${member.firstName} ${member.lastName}`));
 
-        let memberAge = member.age 
-        ? (Date.now() - new Date(Date.parse(member.age)).getTime()) / (1000 * 60 * 60 * 24 * 365.25) 
+        let memberAge = member.birthDay 
+        ? Math.round((Date.now() - new Date(Date.parse(member.birthDay)).getTime()) / (1000 * 60 * 60 * 24 * 365.25))
         : "N/A";
         memberRow.appendChild(addTableCell(`${memberAge}`));
     }
